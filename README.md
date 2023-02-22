@@ -39,21 +39,21 @@
     ```
 
 * (Q5) Is the comparison of the attribute `Name` case-sensitive?
-<br/>No, it is not case-sensitive.
+<br/>Yes, the attribute `Name` is case sensitive. 
 
 * (Q6) Explain how you answered (Q5). Show the commands that you ran and how would the output tell you if MongoDB applied case-sensitive or case-insensitive.
 <br/>I ran two commands:
     ```javascript
-    db.contacts.find({},{Name: "Zoey Stevens"})
-    db.contacts.find({},{Name: "zoey stevens"})
+    db.contacts.find({},{_id:true ,Name:true}).sort({Name:-1})
+    db.contacts.find({},{_id:true ,Name:true}).sort({name:-1})
     ```
-And both commands returned the same arrays with the same arrays that have the same objectId for `_id`
+And the first command returned the array with the name in reverse order but in the second command, the file was not sorted. 
 
 
 * (Q7) What is the command that retrieves the results in sorted order but without the `_id` field?
 
     ```javascript
-    db.contacts.find({},{_id:false}).sort({Name:1})
+    db.contacts.find({},{_id:false, Name: true}).sort({Name:1})
     ```
 
 
@@ -104,18 +104,26 @@ And both commands returned the same arrays with the same arrays that have the sa
 
 * (Q13) Where did the two records appear in the ascending sort order? Explain your observation.
 
+`{First: "Yuan", Last: "Zhang"}` appear at the very end whereas `["Yuan", "Zhang"]` appeared between "Victoria Woods" and "Yuka Allen."
 
 * (Q14) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?
-
+Yes, MongoDB was able to build the index on that field. 
 
 * (Q15) What is your command for building the index?
 
     ```javascript
     // Replace here
+    db.contacts.createIndex({Name: 1})
     ```
 
 
 * (Q16) What is the output of the create index command?
 
     ```text
+    {
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+    }
     ```
