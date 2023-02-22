@@ -35,7 +35,7 @@
 
     ```javascript
     // Replace here
-    db.contacts.find({_id:1},{Name:1}).sort({Name:1})
+    db.contacts.find({_id:1},{Name:1}).sort({Name:-1})
     ```
 
 * (Q5) Is the comparison of the attribute `Name` case-sensitive?
