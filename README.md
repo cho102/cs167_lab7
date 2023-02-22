@@ -20,18 +20,22 @@
 
     ```text
     # Replace here
+    2023-02-22T00:03:37.082+0000	connected to: mongodb://localhost/
+    2023-02-22T00:03:37.230+0000	1000 document(s) imported successfully. 0 document(s) failed to import.
     ```
 
 * (Q3) What is your command to retrieve all users sorted by Name in ascending order?
 
     ```javascript
     // Replace here
+    db.contacts.find().sort({Name:1})
     ```
 
 * (Q4) What is your command to retrieve only the `_id` and `Name` sorted in reverse order by `Name`?
 
     ```javascript
     // Replace here
+    db.contacts.find({_id:1},{Name:1}).sort({Name:1})
     ```
 
 * (Q5) Is the comparison of the attribute `Name` case-sensitive?
