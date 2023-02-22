@@ -35,18 +35,25 @@
 
     ```javascript
     // Replace here
-    db.contacts.find({_id:1},{Name:1}).sort({Name:-1})
+    db.contacts.find({},{_id:true ,Name:true}).sort({Name:-1})
     ```
 
 * (Q5) Is the comparison of the attribute `Name` case-sensitive?
-
+<br/>No, it is not case-sensitive.
 
 * (Q6) Explain how you answered (Q5). Show the commands that you ran and how would the output tell you if MongoDB applied case-sensitive or case-insensitive.
+<br/>I ran two commands:
+    ```javascript
+    db.contacts.find({},{Name: "Zoey Stevens"})
+    db.contacts.find({},{Name: "zoey stevens"})
+    ```
+And both commands returned the same arrays with the same arrays that have the same objectId for `_id`
 
 
 * (Q7) What is the command that retrieves the results in sorted order but without the `_id` field?
 
     ```javascript
+    db.contacts.find({},{_id:false}).sort({Name:1})
     ```
 
 
@@ -55,27 +62,44 @@
     Command:
     ```javascript
     // Replace here
+    db.contacts.insertOne({Name: {First: "Yuan", Last: "Zhang"}})
     ```
 
     Result:
     ```json
+    {
+	"acknowledged" : true,
+	"insertedId" : ObjectId("63f5658f6fc599026c9b7886")
+    }
     ```
 
 * (Q9) Does MongoDB accept this document while the `Name` field has a different type than other records?
-
+<br/>Yes, MongoDB accepted it.
 
 
 * (Q10) What is your command to insert the record `{Name: ["Yuan", "Zhang"]}`?
 
     ```javascript
     // Replace here
+    db.contacts.insertOne({Name: ["Yuan", "Zhang"]})
     ```
 
 
-* (Q11) Where did the two new records appear in the sort order?
+* (Q11) Where did the two new records appear in the sort order? <br/>
+`{Name: {First: "Yuan", Last: "Zhang"}}` appear first in the output whereas `{Name: ["Yuan", "Zhang"]}` appeared between "Zoey Freeman" and "Yuna Williamson."
 
+    ```text
+    { "_id" : ObjectId("63f5658f6fc599026c9b7886"), "Name" : { "First" : "Yuan", "Last" : "Zhang" } }
+    { "_id" : ObjectId("63f55bd9e505213f0889e232"), "Name" : "Zoey Stevens" }
+    ...
+    { "_id" : ObjectId("63f55f7d176bc8dc8479bb9c"), "Name" : "Zoey Freeman" }
+    { "_id" : ObjectId("63f566036fc599026c9b7887"), "Name" : [ "Yuan", "Zhang" ] }
+    { "_id" : ObjectId("63f55bd9e505213f0889e472"), "Name" : "Yuna Williamson" }
+    ```
 
-* (Q12) Why did they appear at these specific locations?
+* (Q12) Why did they appear at these specific locations? <br/>
+
+`{First: "Yuan", Last: "Zhang"}` is an object whereas `["Yuan", "Zhang"]` is an array. Therefore when comparing BSON types, objects have the highest order, 
 
 
 * (Q13) Where did the two records appear in the ascending sort order? Explain your observation.
