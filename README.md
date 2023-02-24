@@ -99,12 +99,12 @@ And the first command returned the array with the name in reverse order but in t
 
 * (Q12) Why did they appear at these specific locations? <br/>
 
-`{First: "Yuan", Last: "Zhang"}` is an object whereas `["Yuan", "Zhang"]` is an array. Therefore when comparing BSON types, objects have the highest order, 
+`{First: "Yuan", Last: "Zhang"}` is an object whereas `["Yuan", "Zhang"]` is an array. Therefore when comparing BSON types, objects have the highest order, so it would appear first. As for the array `["Yuan", "Zhang"]` the strings will be ordered in descending order with the string "Zhang" having the highest order that will be used to compare.  
 
 
 * (Q13) Where did the two records appear in the ascending sort order? Explain your observation.
 
-`{First: "Yuan", Last: "Zhang"}` appear at the very end whereas `["Yuan", "Zhang"]` appeared between "Victoria Woods" and "Yuka Allen."
+`{First: "Yuan", Last: "Zhang"}` appear at the very end of the output whereas `["Yuan", "Zhang"]` appeared between "Victoria Woods" and "Yuka Allen." As an object, `{First: "Yuan", Last: "Zhang"}`  is an object with the highest order. "Yuan" has the lowest order in the `["Yuan", "Zhang"]` so it is in between "Victoria" and "Yuka."
 
 * (Q14) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?
 Yes, MongoDB was able to build the index on that field. 
